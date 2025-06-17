@@ -15,6 +15,7 @@
         'views/res_partner_views.xml',
         'views/chatby_subscriber_views.xml',
         'views/chatby_message_views.xml',
+        'views/crm_views.xml',
         'views/menu_views.xml',
         'views/res_config_settings_views.xml',
         'data/cron_jobs.xml',

@@ -3,8 +3,9 @@
     <menuitem id="chatby_root_menu" name="ChatBy" sequence="100"
         web_icon="chatby_integration,static/description/icon.png" />
 
-    <menuitem id="chatby_leads_menu" name="Leads" parent="chatby_root_menu"
-        action="crm.crm_lead_action_pipeline" sequence="10"/>
+    <menuitem id="chatby_leads_menu" name="Leads" parent="chatby_root_menu" sequence="10" action="action_crm_lead_chatby"/>
+    <menuitem id="chatby_leads_submenu" name="Leads" parent="chatby_leads_menu"
+        action="action_crm_lead_chatby" sequence="20"/>
     <menuitem id="chatby_contacts_menu" name="Contactos" parent="chatby_root_menu" sequence="10"/>
     <menuitem id="chatby_contacts_submenu" name="Contactos" parent="chatby_contacts_menu"
         action="action_partner_chatby" sequence="20"/>

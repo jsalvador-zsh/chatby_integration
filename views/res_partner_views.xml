@@ -60,4 +60,27 @@
             </xpath>
         </field>
     </record>
+    <record id="view_crm_lead_form_inherit_chatby" model="ir.ui.view">
+        <field name="name">crm.lead.form.inherit.chatby</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='team_id']" position="after">
+                <field name="subscriber_id" widget="many2one_clickable" readonly="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_chatby_subscriber_form_inherit_opportunity" model="ir.ui.view">
+        <field name="name">chatby.subscriber.form.inherit.opportunity</field>
+        <field name="model">chatby.subscriber</field>
+        <field name="inherit_id" ref="view_chatby_subscriber_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Oportunidad CRM">
+                    <field name="opportunity_id" widget="many2one_clickable" />
+                </page>
+            </xpath>
+        </field>
+    </record>
 </odoo>

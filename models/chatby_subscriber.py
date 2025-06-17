@@ -56,6 +56,56 @@ class ChatBySubscriber(models.Model):
 
     opportunity_id = fields.Many2one('crm.lead', string='Oportunidad Relacionada')
 
+    @api.model
+    def create(self, vals):
+        """Override create method to generate opportunity automatically"""
+        # Primero creamos el subscriber
+        subscriber = super(ChatBySubscriber, self).create(vals)
+        
+        # Luego creamos la oportunidad
+        subscriber._create_opportunity()
+        
+        return subscriber
+    
+    def _create_opportunity(self):
+        """Crea una oportunidad en el CRM basada en el subscriber"""
+        self.ensure_one()
+        try:
+            # Determinar el nombre de la oportunidad
+            opportunity_name = f"Nuevo lead de {self.channel}"
+            if self.first_name and self.last_name:
+                opportunity_name = f"{self.first_name} {self.last_name} - {self.channel}"
+            elif self.name:
+                opportunity_name = f"{self.name} - {self.channel}"
+            
+            # Determinar la etapa inicial (usaremos la primera etapa de tipo 'New')
+            stage = self.env['crm.stage'].search([('team_id', '=', False)], limit=1)
+            
+            # Crear la oportunidad
+            opportunity = self.env['crm.lead'].create({
+                'name': opportunity_name,
+                'partner_id': self.partner_id.id if self.partner_id else False,
+                'email_from': self.email,
+                'phone': self.phone,
+                'description': _("""Subscriber creado desde ChatBy\nCanal: %s\nUsuario: %s\nID: %s\nÚltima interacción: %s""") % (self.channel, self.name or '-', self.user_id or '-', self.last_interaction or '-'),
+                'stage_id': stage.id if stage else False,
+                'team_id': False,
+                'user_id': False,
+                'source_id': self.env.ref('odoo_chatby_plg.source_chatby').id if \
+                    self.env.ref('odoo_chatby_plg.source_chatby', False) else False,
+                'subscriber_id': self.id,
+            })
+            
+            # Relacionar la oportunidad con el subscriber
+            self.opportunity_id = opportunity.id
+            
+            _logger.info("Oportunidad creada automáticamente para subscriber %s", self.id)
+            return opportunity
+            
+        except Exception as e:
+            _logger.error("Error al crear oportunidad para subscriber %s: %s", self.id, str(e))
+            return False
+
     def action_create_partner(self):
         """Crea un partner a partir del subscriber"""
         self.ensure_one()
