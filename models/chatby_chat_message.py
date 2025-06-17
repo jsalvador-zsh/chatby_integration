@@ -12,6 +12,9 @@ class ChatByChatMessage(models.Model):
     _order = 'ts desc'
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
+    message_type = fields.Char(string='Message Type')
+
+
     # Campos principales
     mid = fields.Char(string='Message ID', readonly=True, index=True)
     subscriber_id = fields.Many2one(

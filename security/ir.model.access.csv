@@ -1,4 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_chatby_api,chatby.api,model_chatby_api,base.group_user,1,1,1,1
 access_chatby_api,chatby.api,model_chatby_subscriber,base.group_user,1,1,1,1
-access_chatby_message,chatby.chat.message,model_chatby_chat_message,base.group_user,1,0,1,1
+access_chatby_message,chatby.chat.message,model_chatby_chat_message,base.group_user,1,1,1,1

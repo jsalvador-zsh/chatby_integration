@@ -66,13 +66,19 @@
                                 <field name="tags" />
                             </group>
                         </page>
+                        <page string="Mensajes" name="messages_page">
+                            <field name="message_ids" mode="tree">
+                                <tree>
+                                    <field name="ts" string="Fecha" />
+                                    <field name="type" string="Tipo" invisible="1" />
+                                    <field name="username" string="Remitente" />
+                                    <field name="content" string="Mensaje" />
+                                    <field name="msg_type" string="Tipo de Mensaje" />
+                                </tree>
+                            </field>
+                        </page>
                     </notebook>
                 </sheet>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids" widget="mail_followers" />
-                    <field name="activity_ids" widget="mail_activity" />
-                    <field name="message_ids" widget="mail_thread" />
-                </div>
             </form>
         </field>
     </record>

@@ -54,6 +54,8 @@ class ChatBySubscriber(models.Model):
         string='Messages'
     )
 
+    opportunity_id = fields.Many2one('crm.lead', string='Oportunidad Relacionada')
+
     def action_create_partner(self):
         """Crea un partner a partir del subscriber"""
         self.ensure_one()
