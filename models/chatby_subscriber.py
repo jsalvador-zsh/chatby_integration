@@ -48,6 +48,12 @@ class ChatBySubscriber(models.Model):
     tags = fields.Char(string='Tags', readonly=True)
     partner_id = fields.Many2one('res.partner', string='Related Partner')
     
+    message_ids = fields.One2many(
+        'chatby.chat.message', 
+        'subscriber_id', 
+        string='Messages'
+    )
+
     def action_create_partner(self):
         """Crea un partner a partir del subscriber"""
         self.ensure_one()
