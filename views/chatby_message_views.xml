@@ -6,11 +6,11 @@
         <field name="model">chatby.chat.message</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="ts" string="Date"/>
-                <field name="username" string="From"/>
-                <field name="type" string="Direction"/>
-                <field name="msg_type" string="Type"/>
-                <field name="content" string="Message"/>
+                <field name="ts" string="Date" />
+                <field name="username" string="From" />
+                <field name="type" string="Direction" />
+                <field name="msg_type" string="Type" />
+                <field name="content" string="Message" />
             </tree>
         </field>
     </record>
@@ -24,25 +24,31 @@
                 <sheet>
                     <group>
                         <group>
-                            <field name="subscriber_id" widget="many2one_clickable"/>
-                            <field name="ts"/>
-                            <field name="username"/>
-                            <field name="type"/>
-                            <field name="msg_type"/>
+                            <field name="subscriber_id" widget="many2one_clickable" />
+                            <field name="ts" />
+                            <field name="username" />
+                            <field name="type" />
+                            <field name="msg_type" />
                         </group>
                         <group>
-                            <field name="mid"/>
-                            <field name="sender_id"/>
-                            <field name="agent_id"/>
-                            <field name="message_id"/>
+                            <field name="mid" />
+                            <field name="sender_id" />
+                            <field name="agent_id" />
+                            <field name="message_id" />
                         </group>
                     </group>
                     <group>
-                        <field name="content" colspan="4"/>
-                        <field name="payload_text" widget="text" colspan="4" nolabel="1"/>
-                        <field name="payload_url" widget="url" colspan="4" nolabel="1" attrs="{'invisible': [('payload_url', '=', False)]}"/>
+                        <field name="content" colspan="4" />
+                        <field name="payload_text" widget="text" colspan="4" nolabel="1" />
+                        <field name="payload_url" widget="url" colspan="4" nolabel="1"
+                            attrs="{'invisible': [('payload_url', '=', False)]}" />
                     </group>
                 </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="activity_ids" widget="mail_activity" />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
             </form>
         </field>
     </record>
@@ -53,13 +59,14 @@
         <field name="res_model">chatby.chat.message</field>
         <field name="view_mode">tree,form</field>
     </record>
-        <record id="view_chatby_subscriber_form_inherit_messages" model="ir.ui.view">
+    <record id="view_chatby_subscriber_form_inherit_messages" model="ir.ui.view">
         <field name="name">chatby.subscriber.form.inherit.messages</field>
         <field name="model">chatby.subscriber</field>
-        <field name="inherit_id" ref="view_chatby_subscriber_form"/>
+        <field name="inherit_id" ref="view_chatby_subscriber_form" />
         <field name="arch" type="xml">
             <xpath expr="//header" position="inside">
-                <button name="action_sync_messages" type="object" string="Sincronizar Mensajes" class="btn-secondary"/>
+                <button name="action_sync_messages" type="object" string="Sincronizar Mensajes"
+                    class="btn-secondary" />
             </xpath>
         </field>
     </record>
