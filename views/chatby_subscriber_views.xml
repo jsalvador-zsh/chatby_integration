@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vista tree -->
+    <record id="view_chatby_subscriber_tree" model="ir.ui.view">
+        <field name="name">chatby.subscriber.tree</field>
+        <field name="model">chatby.subscriber</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="first_name" />
+                <field name="last_name" />
+                <field name="channel" />
+                <field name="email" />
+                <field name="phone" />
+                <field name="last_interaction" />
+                <field name="partner_id" widget="many2one_clickable" />
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vista form -->
+    <record id="view_chatby_subscriber_form" model="ir.ui.view">
+        <field name="name">chatby.subscriber.form</field>
+        <field name="model">chatby.subscriber</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_create_partner" type="object" icon="fa-users"
+                        string=" Crear Partner"
+                        class="btn-primary" />
+                </header>
+                <sheet>
+                    <field name="avatar_image" widget="image" class="oe_avatar"
+                        options='{"preview_image": "avatar_image"}' />
+                    <div class="oe_title" modifiers="{}">
+                        <h1 modifiers="{}">
+                            <field name="name" placeholder="Nombre" />
+                        </h1>
+                        <h2 modifiers="{}">
+                            <field name="status" placeholder="Status" modifiers="{}" />
+                        </h2>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="first_name" />
+                            <field name="last_name" />
+                            <field name="channel" />
+                            <field name="gender" />
+                            <field name="email" />
+                            <field name="phone" />
+                        </group>
+                        <group>
+                            <field name="partner_id" />
+                            <field name="subscribed" />
+                            <field name="last_interaction" />
+                            <field name="last_message_at" />
+                            <field name="last_message_type" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Detalles">
+                            <group>
+                                <field name="country" />
+                                <field name="city" />
+                                <field name="language" />
+                                <field name="tags" />
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="activity_ids" widget="mail_activity" />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Acciones y menús -->
+    <record id="action_chatby_subscriber" model="ir.actions.act_window">
+        <field name="name">Subscribers</field>
+        <field name="res_model">chatby.subscriber</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

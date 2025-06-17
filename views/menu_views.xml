@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="chatby_root_menu" name="ChatBy" sequence="100"
+        web_icon="chatby_integration,static/description/icon.png" />
+
+    <menuitem id="chatby_leads_menu" name="Leads" parent="chatby_root_menu"
+        action="crm.crm_lead_action_pipeline" sequence="10"/>
+    <menuitem id="chatby_contacts_menu" name="Contactos" parent="chatby_root_menu" sequence="10"/>
+    <menuitem id="chatby_contacts_submenu" name="Contactos" parent="chatby_contacts_menu"
+        action="action_partner_chatby" sequence="20"/>
+    <menuitem id="menu_chatby_subscriber" name="Subscribers" parent="chatby_contacts_menu"
+        action="action_chatby_subscriber" sequence="20"/>
+    <menuitem id="chatby_message_menu" name="Mensajes" parent="chatby_root_menu" sequence="10"/>
+    <menuitem id="chatby_message_submenu" name="Mensajes" parent="chatby_message_menu"
+        action="action_chatby_message" sequence="20"/>
+    <menuitem id="chatby_configuration_menu" name="Configuración" parent="chatby_root_menu" sequence="10"/>
+</odoo>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_inherit_chatby" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.chatby</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-key="chatby_integration"
+                    data-string="Integración Chatby" string="Integración Chatby">
+                    <h2>Configuración de ChatBy</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <label for="chatby_api_url" />
+                                <div class="text-muted">URL de la API de ChatBy</div>
+                                <field name="chatby_api_url" />
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <label for="chatby_token" />
+                                <div class="text-muted">Token de autenticación</div>
+                                <field name="chatby_token" password="1"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <button name="test_chatby_connection" type="object" string=" Probar conexión" icon="fa-check" class="btn btn-secondary" />
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <label for="sync_chatby_subscribers" string="Obtener/Actualizar Subscribers" />
+                                <div class="text-muted">Realiza una consulta a Chatby obteniendo contactos nuevos y/o actualizando los registros existentes</div>
+                                <button name="sync_chatby_subscribers" type="object" string="Sincronizar Subscribers" icon="fa-refresh" class="btn-secondary"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+        <record id="action_chatby_settings_general" model="ir.actions.act_window">
+        <field name="name">Configuraciones Generales</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'chatby_integration'}</field>
+    </record>
+    <menuitem
+        id="menu_dms_settings_general"
+        name="Configuraciones Generales"
+        parent="chatby_configuration_menu"
+        sequence="0"
+        action="action_chatby_settings_general"
+        groups="base.group_system"
+    />
+</odoo>

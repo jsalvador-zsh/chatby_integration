@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vista tree personalizada para contactos de ChatBy -->
+    <record id="view_partner_chatby_tree" model="ir.ui.view">
+        <field name="name">res.partner.chatby.tree</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree" />
+        <field name="arch" type="xml">
+            <field name="display_name" position="after">
+                <field name="user_ns" optional="show" />
+                <field name="channel" string="Canal" optional="show" />
+                <field name="mobile" optional="show" />
+            </field>
+        </field>
+    </record>
+
+    <!-- Vista form personalizada para contactos de ChatBy -->
+    <record id="view_partner_chatby_form" model="ir.ui.view">
+        <field name="name">res.partner.chatby.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='internal_notes']" position="before">
+                <page string="ChatBy">
+                    <group>
+                        <field name="user_ns" />
+                        <field name="user_id" />
+                        <field name="agent_id" />
+                        <field name="channel" />
+                        <field name="chatby_subscriber_id" widget="many2one_clickable" />
+                    </group>
+                </page>
+
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Acción personalizada para contactos de ChatBy -->
+    <record id="action_partner_chatby" model="ir.actions.act_window">
+        <field name="name">Contactos ChatBy</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('chatby_subscriber_id', '!=', False)]</field>
+        <field name="context">{'search_default_chatby_contacts': 1}</field>
+        <field name="search_view_id" ref="base.view_res_partner_filter" />
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Estos son contactos importados desde ChatBy</p>
+        </field>
+    </record>
+
+    <!-- Filtro personalizado -->
+    <record id="view_res_partner_filter_inherit" model="ir.ui.view">
+        <field name="name">res.partner.filter.chatby</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_id']" position="after">
+                <filter name="chatby_contacts" string="Contactos ChatBy"
+                    domain="[('chatby_subscriber_id', '!=', False)]" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

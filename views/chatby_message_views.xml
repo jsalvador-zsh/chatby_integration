@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vista tree para mensajes -->
+    <record id="view_chatby_message_tree" model="ir.ui.view">
+        <field name="name">chatby.message.tree</field>
+        <field name="model">chatby.chat.message</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="ts" string="Date"/>
+                <field name="username" string="From"/>
+                <field name="type" string="Direction"/>
+                <field name="msg_type" string="Type"/>
+                <field name="content" string="Message"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vista form para mensajes -->
+    <record id="view_chatby_message_form" model="ir.ui.view">
+        <field name="name">chatby.message.form</field>
+        <field name="model">chatby.chat.message</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="subscriber_id" widget="many2one_clickable"/>
+                            <field name="ts"/>
+                            <field name="username"/>
+                            <field name="type"/>
+                            <field name="msg_type"/>
+                        </group>
+                        <group>
+                            <field name="mid"/>
+                            <field name="sender_id"/>
+                            <field name="agent_id"/>
+                            <field name="message_id"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="content" colspan="4"/>
+                        <field name="payload_text" widget="text" colspan="4" nolabel="1"/>
+                        <field name="payload_url" widget="url" colspan="4" nolabel="1" attrs="{'invisible': [('payload_url', '=', False)]}"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Acción para mensajes -->
+    <record id="action_chatby_message" model="ir.actions.act_window">
+        <field name="name">Chat Messages</field>
+        <field name="res_model">chatby.chat.message</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+        <record id="view_chatby_subscriber_form_inherit_messages" model="ir.ui.view">
+        <field name="name">chatby.subscriber.form.inherit.messages</field>
+        <field name="model">chatby.subscriber</field>
+        <field name="inherit_id" ref="view_chatby_subscriber_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_sync_messages" type="object" string="Sincronizar Mensajes" class="btn-secondary"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

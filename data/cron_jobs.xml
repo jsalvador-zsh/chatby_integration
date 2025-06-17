@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Cron job para sincronizar subscribers -->
+    <record id="ir_cron_sync_subscribers" model="ir.cron">
+        <field name="name">Sincronizar Subscribers desde ChatBy</field>
+        <field name="model_id" ref="model_chatby_subscriber" />
+        <field name="state">code</field>
+        <field name="code">model._cron_sync_subscribers()</field>
+        <field name="interval_number">5</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False" />
+        <field name="active" eval="True" />
+    </record>
+
+    <!-- Cron job para crear/actualizar partners -->
+    <record id="ir_cron_create_partners" model="ir.cron">
+        <field name="name">Crear/Actualizar Partners desde Subscribers</field>
+        <field name="model_id" ref="model_chatby_subscriber" />
+        <field name="state">code</field>
+        <field name="code">model._cron_create_update_partners()</field>
+        <field name="interval_number">5</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False" />
+        <field name="active" eval="True" />
+        <field name="priority">10</field>
+    </record>
+    <record id="ir_cron_sync_messages" model="ir.cron">
+        <field name="name">Sincronizar Mensajes de ChatBy</field>
+        <field name="model_id" ref="model_chatby_chat_message" />
+        <field name="state">code</field>
+        <field name="code">model._cron_sync_all_messages()</field>
+        <field name="interval_number">5</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False" />
+        <field name="active" eval="True" />
+    </record>
+</odoo>
